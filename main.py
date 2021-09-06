@@ -26,7 +26,7 @@ login_manager.init_app(app)
 
 class User(UserMixin, db.Model):
     __tablename__ = "user"
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integers, primary_key=True)
     email = db.Column(db.String(250), nullable=False)
     password = db.Column(db.String(250), nullable=False)
     name = db.Column(db.String(50), nullable=False)
@@ -38,8 +38,8 @@ db.create_all()
 
 class BlogPost(db.Model):
     __tablename__ = "blog_posts"
-    id = db.Column(db.Integer, primary_key=True)
-    author_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    id = db.Column(db.Integers, primary_key=True)
+    author_id = db.Column(db.Integers, db.ForeignKey("user.id"))
     author = relationship("User", back_populates="posts")
     title = db.Column(db.String(250), unique=True, nullable=False)
     subtitle = db.Column(db.String(250), nullable=False)
@@ -52,11 +52,11 @@ class Comment(db.Model):
 
 
     __tablename__ = "comments"
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integers, primary_key=True)
     text = db.Column(db.Text, nullable=False)
-    author_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    author_id = db.Column(db.Integers, db.ForeignKey("user.id"))
     comment_author = relationship("User", back_populates="comment")
-    post_id = db.Column(db.Integer, db.ForeignKey("blog_posts.id"))
+    post_id = db.Column(db.Integers, db.ForeignKey("blog_posts.id"))
     parent_post = relationship("BlogPost", back_populates="comments")
     text = db.Column(db.Text, nullable=False)
 db.create_all()
